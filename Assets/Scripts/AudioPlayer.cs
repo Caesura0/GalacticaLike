@@ -37,14 +37,6 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
-    //public void PlayShootingClip()
-    //{
-    //    if(shootingClip != null)
-    //    {
-    //        AudioSource.PlayClipAtPoint(shootingClip, Camera.main.transform.position, shootingVolume);
-    //    }
-    //}
-
 
     public void PlayOneShotClip(AudioClip audioclip, float volume)
     {

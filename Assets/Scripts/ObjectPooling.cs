@@ -13,12 +13,6 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-    public static ObjectPooling instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;

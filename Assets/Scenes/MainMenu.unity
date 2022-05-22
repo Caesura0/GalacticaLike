@@ -372,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Laser Defender
+  m_text: Canada Defender
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 649db618e16f55142aacfdf67b630807, type: 2}
   m_sharedMaterial: {fileID: 4122671852706698396, guid: 649db618e16f55142aacfdf67b630807, type: 2}
@@ -1451,6 +1451,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1679302772
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 849423101824746484, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_Name
+      value: AudioPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746489, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a518e9faf41411740ba8050e1654c28a, type: 3}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 849423101824746491, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4182a6d34f73b4e4fbad8f109b97b790, type: 3}
 --- !u!1 &1688642531
 GameObject:
   m_ObjectHideFlags: 0
