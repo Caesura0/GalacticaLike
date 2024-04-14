@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    WaveConfigSO currentWave;
     [SerializeField] List<WaveConfigSO> waveConfigs;
-    private int currentWaveIndex = 0;
+    [SerializeField] float timeBetweenWaves = 0f;
+
+
+    //check if enough of the enemies are in the pooler
+    //if not then we add whatever we need for it
+    //otherwise skip
+
+
 
     void Start()
     {
         StartCoroutine(SpawnEnemyWaves());
     }
 
-    IEnumerator SpawnEnemyWaves()
-    {
-        while (currentWaveIndex < waveConfigs.Count)
-        {
-            WaveConfigSO currentWave = waveConfigs[currentWaveIndex];
-            for (int waveIndex = 0; waveIndex < currentWave.GetWaveCount(); waveIndex++)
-            {
-                for (int enemyIndex = 0; enemyIndex < currentWave.GetEnemiesInWave(waveIndex); enemyIndex++)
-                {
-                    Instantiate(
-                        currentWave.GetEnemyPrefab(enemyIndex),
-                        currentWave.GetStartingWaypoint().position,
-                        Quaternion.Euler(0, 0, 180),
-                        transform
-                    );
-                    yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
-                }
-                yield return new WaitForSeconds(currentWave.GetTimeBetweenWaves());
-            }
-            currentWaveIndex++; // Move to the next wave
-        }
-    }
-
     public WaveConfigSO GetCurrentWave()
     {
-        if (currentWaveIndex < waveConfigs.Count)
+        return currentWave;
+    }
+
+
+    IEnumerator SpawnEnemyWaves()
+    {
+        foreach(WaveConfigSO wave in waveConfigs)
         {
-            return waveConfigs[currentWaveIndex];
+            currentWave = wave;
+            for (int i = 0; i < currentWave.GetEnemyCount(); i++)
+            {
+
+                Instantiate(currentWave.GetEnemyPrefab(i),
+                currentWave.GetStartingWaypoint().position,
+                Quaternion.Euler(0,0,180), transform);
+                yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
+            }
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
-        else
-        {
-            return null; // No more waves available
-        }
+
+
+
+
     }
 }
