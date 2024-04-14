@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    WaveConfigSO currentWave;
     [SerializeField] List<WaveConfigSO> waveConfigs;
-    [SerializeField] float timeBetweenWaves = 0f;
-
-
-    //check if enough of the enemies are in the pooler
-    //if not then we add whatever we need for it
-    //otherwise skip
-
-
+    private int currentWaveIndex = 0;
 
     void Start()
     {
         StartCoroutine(SpawnEnemyWaves());
     }
 
-    public WaveConfigSO GetCurrentWave()
-    {
-        return currentWave;
-    }
-
-
     IEnumerator SpawnEnemyWaves()
     {
-        foreach(WaveConfigSO wave in waveConfigs)
+        while (currentWaveIndex < waveConfigs.Count)
         {
-            currentWave = wave;
-            for (int i = 0; i < currentWave.GetEnemyCount(); i++)
+            WaveConfigSO currentWave = waveConfigs[currentWaveIndex];
+            for (int waveIndex = 0; waveIndex < currentWave.GetWaveCount(); waveIndex++)
             {
-
-                Instantiate(currentWave.GetEnemyPrefab(i),
-                currentWave.GetStartingWaypoint().position,
-                Quaternion.Euler(0,0,180), transform);
-                yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
+                for (int enemyIndex = 0; enemyIndex < currentWave.GetEnemiesInWave(waveIndex); enemyIndex++)
+                {
+                    Instantiate(
+                        currentWave.GetEnemyPrefab(enemyIndex),
+                        currentWave.GetStartingWaypoint().position,
+                        Quaternion.Euler(0, 0, 180),
+                        transform
+                    );
+                    yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
+                }
+                yield return new WaitForSeconds(currentWave.GetTimeBetweenWaves());
             }
-            yield return new WaitForSeconds(timeBetweenWaves);
+            currentWaveIndex++; // Move to the next wave
         }
+    }
 
-
-
-
+    public WaveConfigSO GetCurrentWave()
+    {
+        if (currentWaveIndex < waveConfigs.Count)
+        {
+            return waveConfigs[currentWaveIndex];
+        }
+        else
+        {
+            return null; // No more waves available
+        }
     }
 }
