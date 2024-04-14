@@ -53,6 +53,10 @@ public class Health : MonoBehaviour
      }
 
 
+    public void HealPlayer(int healAmount)
+    {
+        this.health += healAmount;
+    }
 
 
     private void ShakeCamera()
@@ -93,5 +97,11 @@ public class Health : MonoBehaviour
             ParticleSystem particleInstance = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(particleInstance.gameObject, particleInstance.main.duration + particleInstance.main.startLifetime.constantMax);
         }
+    }
+
+
+    public bool GetIsPlayer()
+    {
+        return isPlayer;
     }
 }

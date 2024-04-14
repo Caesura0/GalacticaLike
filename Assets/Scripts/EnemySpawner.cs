@@ -9,13 +9,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float timeBetweenWaves = 0f;
 
 
-
-
-
     //check if enough of the enemies are in the pooler
     //if not then we add whatever we need for it
     //otherwise skip
-
 
 
 
