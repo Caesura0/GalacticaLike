@@ -13,17 +13,26 @@ public class Health : MonoBehaviour
     [SerializeField] bool applyCameraShake = false;
     [SerializeField] bool isPlayer = false;
     [SerializeField] int pointsAwarded = 0;
+    [SerializeField] float shieldMaxTime = 15f;
+    float shieldCurrentTimer = 0;
 
     [Space]
     [Header("Audio Settings")] 
 
     [SerializeField] AudioClip hitSFX;
     [SerializeField] [Range(0f, 1f)] float hitVolume = 1f;
+    [SerializeField] GameObject shieldSprite;
+
+
 
     CameraShake cameraShake;
     AudioPlayer audioPlayer;
     ScoreKeeper scoreKeeper;
     LevelManager levelManager;
+
+    bool shieldActive;
+
+
 
     private void Awake()
     {
@@ -33,27 +42,42 @@ public class Health : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
     }
 
-
+    private void Start()
+    {
+        if(isPlayer)
+        {
+            shieldSprite.SetActive(false);
+        }
+    }
     public int GetHealth()
     {
         return health;
     }
+    private void Update()
+    {
+        if (shieldActive )
+        {
+            shieldCurrentTimer -= Time.deltaTime;
+            if(shieldCurrentTimer <= 0)
+            {
+                SetShield(false);
+            }
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
-        if(damageDealer != null)
+        if (damageDealer != null)
         {
             TakeDamage(damageDealer.GetDamage());
-            PlayHitEffect();
-            ShakeCamera();
+
             damageDealer.Hit();
         }
-            
-     }
+    }
 
-
-    public void HealPlayer(int healAmount)
+public void HealPlayer(int healAmount)
     {
         this.health += healAmount;
     }
@@ -67,10 +91,16 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        audioPlayer.PlayOneShotClip(hitSFX, hitVolume);
-        health -= damage;
+        if (!shieldActive)
+        {
+            audioPlayer.PlayOneShotClip(hitSFX, hitVolume);
+            ShakeCamera();
+            PlayHitEffect();
+            health -= damage;
+        }
+
         if (health <= 0)
         {
             Die();
@@ -90,7 +120,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void PlayHitEffect()
+    private void PlayHitEffect()
     {
         if (hitEffect)
         {
@@ -99,6 +129,12 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void SetShield(bool shield)
+    {
+        shieldSprite.SetActive(shield);
+        shieldActive = shield;
+        shieldCurrentTimer = shieldMaxTime;
+    }
 
     public bool GetIsPlayer()
     {

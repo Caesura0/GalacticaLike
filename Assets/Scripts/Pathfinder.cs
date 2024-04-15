@@ -78,20 +78,19 @@ public class Pathfinder : MonoBehaviour
      {
          if(waypointIndex < waypoints.Count)
          {
-             Vector3 targetPosition = waypoints[waypointIndex].position;
-             float delta = waveConfig.GetMoveSpeed() * Time.deltaTime;
-             transform.position = Vector2.MoveTowards(transform.position, targetPosition, delta);
-
-             if(transform.position == targetPosition)
-             {
-                 waypointIndex++;
-             }
+            Vector3 targetPosition = waypoints[waypointIndex].position;
+            float delta = waveConfig.GetMoveSpeed() * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, delta);
+            
+            if(transform.position == targetPosition)
+            {
+                waypointIndex++;
+            }
          }
          else
          {
-             Destroy(gameObject);
+            Destroy(gameObject);
          }
-
 
      }
     

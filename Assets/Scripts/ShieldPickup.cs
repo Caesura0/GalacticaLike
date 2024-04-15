@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickup : Pickup
+public class ShieldPickup : Pickup
 {
-
-    [SerializeField] int healAmount;
 
     public override void PickupEffect(Player player)
     {
-        player.Health.HealPlayer(healAmount);
-
+        player.SetShieldActive();
         base.PickupEffect(player);
-
     }
 }

@@ -11,21 +11,33 @@ public class Player : MonoBehaviour
     [SerializeField] float paddingTop = 5f;
     [SerializeField] float paddingBot = 5f;
 
+
+
+
     Vector2 rawInput;
     Vector2 minimumBounds;
     Vector2 maximumBounds;
 
     Shooter shooter;
+    Health health;
+
+
+
+    public Health Health {  get { return health; } }
 
     private void Awake()
     {
         shooter = GetComponent<Shooter>();
+        health = GetComponent<Health>();
+
     }
 
     private void Start()
     {
         InitBounds();
     }
+
+
 
     void Update()
     {
@@ -47,6 +59,24 @@ public class Player : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        Pickup pickup = collision.GetComponent<Pickup>();
+        if(pickup != null)
+        {
+            pickup.PickupEffect(this);
+        }
+
+    }
+
+    public void SetShieldActive()
+    {
+        health.SetShield(true);
+    }
+
+
+
     void InitBounds()
     {
         Camera mainCamera = Camera.main;
@@ -62,5 +92,6 @@ public class Player : MonoBehaviour
         }
         
     }
+
 
 }
