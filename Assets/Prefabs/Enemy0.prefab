@@ -99,9 +99,10 @@ GameObject:
   - component: {fileID: -4558764248488341226}
   - component: {fileID: -8967859577467505349}
   - component: {fileID: 4203735746175237006}
+  - component: {fileID: -1882789526514425254}
   m_Layer: 7
   m_Name: Enemy0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,8 +189,10 @@ MonoBehaviour:
   applyCameraShake: 0
   isPlayer: 0
   pointsAwarded: 50
+  shieldMaxTime: 15
   hitSFX: {fileID: 8300000, guid: 441efaf971745d44fb9a6e625bd1673b, type: 3}
   hitVolume: 0.756
+  shieldSprite: {fileID: 0}
 --- !u!114 &-8967859577467505349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,9 +222,25 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileLifetime: 5
   baseFiringRate: 1
+  rapidFiringRate: 3
   useAi: 1
   fireRateVariance: 2
   minFireRate: 0.1
   shootingSFX: {fileID: 8300000, guid: bec555ad93fbed542896cc756d7ea916, type: 3}
   shootVolume: 0.53
-  isFireing: 0
+  rapidFireDuration: 5
+  spreadShotDuration: 5
+  isFiring: 0
+  powerUpType: 3
+--- !u!114 &-1882789526514425254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5856165314266709325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7911f9b033551c44cbc449f19b954aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

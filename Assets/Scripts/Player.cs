@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float paddingLeft = 5f;
@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
 
     public Health Health {  get { return health; } }
+    public Shooter Shooter {  get { return shooter; } }
 
     private void Awake()
     {
@@ -52,6 +53,10 @@ public class Player : MonoBehaviour
         newPos.y = Mathf.Clamp(transform.position.y + delta.y, minimumBounds.y + paddingBot, maximumBounds.y - paddingTop);
         transform.position = newPos ;
     }
+
+
+
+
 
     void OnMove(InputValue value)
     {
@@ -88,10 +93,15 @@ public class Player : MonoBehaviour
     {
         if (shooter != null)
         {
-            shooter.isFireing = value.isPressed;
+            shooter.isFiring = value.isPressed;
         }
         
     }
 
-
+    public void TakeDamage(int damage)
+    {
+        health.TakeDamage(damage);
+        //lets be fancy and pass a delegate back here if we die, and if so , active the base die logic along with specific player die logic
+        //same thing on the enemy script
+    }
 }

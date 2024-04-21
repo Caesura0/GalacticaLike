@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickup : Pickup
+public class PiercingPickup : Pickup
 {
-
-    [SerializeField] int healAmount;
-
     public override void PickupEffect(Player player)
     {
-        player.Health.HealPlayer(healAmount);
-
         base.PickupEffect(player);
-
+        player.Shooter.ActivatePowerUp(PowerUpType.Piercing);
     }
 
-    protected override void Update() { base.Update(); }
+    protected override void Update() { base.Update(); } 
 }

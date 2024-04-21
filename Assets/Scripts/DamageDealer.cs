@@ -1,19 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
-    [SerializeField] int damage = 10;
+    [SerializeField] int baseDamage = 10;
+    [SerializeField] int baseSpeed = 10;
 
+    float damageMultiplier = 1f;
+    bool piercingEnabled = false;
 
     public int GetDamage()
     {
-        return damage;
+        return Mathf.RoundToInt(baseDamage * damageMultiplier);
     }
 
-    public void Hit()
+    public void ApplyPowerUpEffects(float firingRate, bool spreadShotEnabled, bool piercingBulletsEnabled, Vector3 direction, float projectileSpeed)
     {
-        Destroy(gameObject);
+        // Apply damage multiplier based on power-up effects
+        if (firingRate > 1f)
+        {
+            damageMultiplier *= 2f; // Example: Double damage during rapid fire
+        }
+        if (spreadShotEnabled)
+        {
+            damageMultiplier *= 0.5f; // Example: Half damage for spread shot
+        }
+        if (piercingBulletsEnabled)
+        {
+            piercingEnabled = true; // Enable piercing bullets
+        }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = direction * projectileSpeed;
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        IDamagable damagableTarget;
+
+        if(other.TryGetComponent<IDamagable>( out damagableTarget))
+        {
+            damagableTarget.TakeDamage(GetDamage());
+        }
+        if (!piercingEnabled)
+        {
+            // Destroy the projectile if piercing is not enabled
+            Destroy(gameObject);
+        }
+
     }
 }

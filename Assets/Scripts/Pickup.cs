@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField] protected float movespeed;
-    [SerializeField] protected float startYPosition;
+    [SerializeField] protected float pickupDropSpeed = 1;
+    [SerializeField] protected float startYPosition = 12;
     [SerializeField] protected float minXPosition;
     [SerializeField] protected float maxXPosition;
     [SerializeField] protected AudioClip pickupSoundEffect;
@@ -27,5 +27,22 @@ public class Pickup : MonoBehaviour
         Destroy(gameObject);
     }
 
+    protected virtual void Update()
+    {
 
+        transform.Translate(Vector3.down * pickupDropSpeed * Time.deltaTime);
+
+        if(transform.position.y < -10f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void CreatePickup()
+    {
+        float xPosition = Random.Range(minXPosition, maxXPosition);
+        Vector2 startPostion = new Vector2(xPosition, startYPosition);
+        
+        transform.position = startPostion;
+    }
 }

@@ -53,6 +53,8 @@ public class Health : MonoBehaviour
     {
         return health;
     }
+
+
     private void Update()
     {
         if (shieldActive )
@@ -65,17 +67,17 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
 
-        DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
-        if (damageDealer != null)
-        {
-            TakeDamage(damageDealer.GetDamage());
+    //    DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
+    //    if (damageDealer != null)
+    //    {
+    //        TakeDamage(damageDealer.GetDamage());
 
-            damageDealer.Hit();
-        }
-    }
+    //        //damageDealer.Hit();
+    //    }
+    //}
 
 public void HealPlayer(int healAmount)
     {
@@ -107,7 +109,7 @@ public void HealPlayer(int healAmount)
         }
     }
 
-    private void Die()
+    public void Die()
     {
         if (!CompareTag("Player"))
         {
