@@ -22,15 +22,15 @@ public class DrawPath : MonoBehaviour
             Gizmos.DrawLine(children[i].position, children[i + 1].position);
 
             // Draw Bezier Curve
-            Handles.DrawBezier(
-                children[i].position,
-                children[i + 1].position,
-                children[i].position + Vector3.up * 2f,
-                children[i + 1].position - Vector3.up * 2f,
-                Color.blue,
-                null,
-                2f
-            );
+            //Handles.DrawBezier(
+            //    children[i].position,
+            //    children[i + 1].position,
+            //    children[i].position + Vector3.up * 2f,
+            //    children[i + 1].position - Vector3.up * 2f,
+            //    Color.blue,
+            //    null,
+            //    2f
+            //);
         }
     }
 

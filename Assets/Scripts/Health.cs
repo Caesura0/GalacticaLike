@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 {
     [Header("General Settings")]
 
-    [SerializeField] int health = 50;
+    [SerializeField] int maxHealth = 50;
     [SerializeField] ParticleSystem hitEffect;
 
     [SerializeField] bool applyCameraShake = false;
@@ -32,7 +32,7 @@ public class Health : MonoBehaviour
 
     bool shieldActive;
 
-
+    int currentHealth;
 
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class Health : MonoBehaviour
         audioPlayer = FindObjectOfType<AudioPlayer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         levelManager = FindObjectOfType<LevelManager>();
+        currentHealth = maxHealth;
     }
 
     private void Start()
@@ -51,9 +52,15 @@ public class Health : MonoBehaviour
     }
     public int GetHealth()
     {
-        return health;
+        return currentHealth;
     }
 
+    public int GetMaxHealth()
+    {
+        return currentHealth;
+    }
+
+    public float GetHealthNormalized() => currentHealth / maxHealth;
 
     private void Update()
     {
@@ -81,7 +88,8 @@ public class Health : MonoBehaviour
 
 public void HealPlayer(int healAmount)
     {
-        this.health += healAmount;
+        
+        this.currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
     }
 
 
@@ -100,10 +108,11 @@ public void HealPlayer(int healAmount)
             audioPlayer.PlayOneShotClip(hitSFX, hitVolume);
             ShakeCamera();
             PlayHitEffect();
-            health -= damage;
+            int effectiveDamage = Mathf.Min(damage, currentHealth);
+            currentHealth -= effectiveDamage;
         }
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }

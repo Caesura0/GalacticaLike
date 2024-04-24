@@ -27,8 +27,8 @@ public class Shooter : MonoBehaviour
     [Space]
     [Header("Power-up Durations")]
     [SerializeField] float rapidFireDuration = 5f;
-    [SerializeField] float spreadShotDuration = 5f;
-    [SerializeField] float piercingDuration = 5f;
+    [SerializeField] float spreadShotDuration = 60f;
+    [SerializeField] float piercingDuration = 30f;
 
 
     [Space]
@@ -44,8 +44,8 @@ public class Shooter : MonoBehaviour
     AudioPlayer audioPlayer;
 
     private float currentFiringRate;
-    private bool spreadShotEnabled = false;
-    private bool piercing = false;
+    [SerializeField] bool spreadShotEnabled = false;
+    [SerializeField] bool piercing = false;
 
     public PowerUpType powerUpType = PowerUpType.None;
 
@@ -122,13 +122,26 @@ public class Shooter : MonoBehaviour
 
     void SpreadShot()
     {
-
-        for (int i = 0; i < numProjectiles; i++)
+        if (!useAi)
         {
-            float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
-            Vector3 direction = Quaternion.Euler(0, 0, angle) * transform.up;
-            FireProjectile(direction);
+            for (int i = 0; i < numProjectiles; i++)
+            {
+                float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
+                Vector3 direction = Quaternion.Euler(0, 0, angle) * transform.up;
+                FireProjectile(direction);
+            }
         }
+        else
+        {
+            for (int i = 0; i < numProjectiles; i++)
+            {
+                float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
+                Vector3 direction = Quaternion.Euler(0, 0, angle) * -transform.up;
+                FireProjectile(direction);
+            }
+        }
+        
+
     }
 
     void FireProjectile(Vector3 direction)

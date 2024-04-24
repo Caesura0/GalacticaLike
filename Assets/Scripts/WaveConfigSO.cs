@@ -1,19 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "Wave Config", fileName = "New Wave Config")]
 public class WaveConfigSO : ScriptableObject
 {
-    [SerializeField] Transform pathPrefab;
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] float timeBetweenEnemySpawns = 1f;
-    [SerializeField] float spawnTimeVariance = 0f;
-    [SerializeField] float minimunSpawnTime = .2f;
+    [SerializeField] protected Transform pathPrefab;
+    [SerializeField] protected float moveSpeed = 5f;
+    [SerializeField] protected float timeBetweenEnemySpawns = 1f;
+    [SerializeField] protected float spawnTimeVariance = 0f;
+    [SerializeField] protected float minimunSpawnTime = .2f;
 
 
-    [SerializeField] List<GameObject> enemyPrefabs;
+    [SerializeField] protected List<Enemy> enemyPrefabs;
+
+
+    
+
+    [SerializeField] Transform endFormation;
+
+
+    //build this location into enemy spawner
+
+    [SerializeField] bool joinFormationAtEndOfPath;
+    public bool JoinFormationAtEndOfPath { get { return joinFormationAtEndOfPath; } }
+
+
+
+
+    public List<Transform> GetFormationPositionList()
+    {
+        if (joinFormationAtEndOfPath)
+        {
+            List<Transform> endFormationList = new List<Transform>();
+            foreach (Transform child in endFormation.GetComponentInChildren<Transform>())
+            {
+                endFormationList.Add(child);
+            }
+            return endFormationList;
+        }
+        return null;
+    }
+
+    
+    public void SetEnemyPrefabToFormationPoint()
+    {
+
+    }
+
+
     public float GetMoveSpeed()
     {
         return moveSpeed;
@@ -42,13 +79,13 @@ public class WaveConfigSO : ScriptableObject
         return enemyPrefabs.Count;
     }
 
-    public List<GameObject> GetEnemyPrefabs()
+    public List<Enemy> GetEnemyPrefabs()
     {
 
         return enemyPrefabs;
     }
 
-    public GameObject GetEnemyPrefab(int index)
+    public Enemy GetEnemyPrefab(int index)
     {
 
         return enemyPrefabs[index];

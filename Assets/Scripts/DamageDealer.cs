@@ -7,6 +7,7 @@ public class DamageDealer : MonoBehaviour
 
     float damageMultiplier = 1f;
     bool piercingEnabled = false;
+    [SerializeField] bool isPlayerBullet = false;
 
     public int GetDamage()
     {
@@ -44,12 +45,13 @@ public class DamageDealer : MonoBehaviour
         if(other.TryGetComponent<IDamagable>( out damagableTarget))
         {
             damagableTarget.TakeDamage(GetDamage());
+            if (!piercingEnabled)
+            {
+                // Destroy the projectile if piercing is not enabled
+                Destroy(gameObject);
+            }
         }
-        if (!piercingEnabled)
-        {
-            // Destroy the projectile if piercing is not enabled
-            Destroy(gameObject);
-        }
+
 
     }
 }

@@ -13,6 +13,14 @@ public class Player : MonoBehaviour, IDamagable
 
 
 
+    [SerializeField] SpriteRenderer playerShipImage;
+
+
+
+    [SerializeField] float iFramesSeconds = 1f;
+
+
+
 
     Vector2 rawInput;
     Vector2 minimumBounds;
@@ -21,7 +29,7 @@ public class Player : MonoBehaviour, IDamagable
     Shooter shooter;
     Health health;
 
-
+    bool isInvincible = false;
 
     public Health Health {  get { return health; } }
     public Shooter Shooter {  get { return shooter; } }
@@ -100,8 +108,61 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        health.TakeDamage(damage);
+        
+        //take damage and then have invincibily and flashing for time in 'iFramesSeconds'
+        if (!isInvincible)
+        {
+            StartCoroutine(IFramesProcess());
+            health.TakeDamage(damage);
+        }
         //lets be fancy and pass a delegate back here if we die, and if so , active the base die logic along with specific player die logic
         //same thing on the enemy script
+    }
+
+    IEnumerator IFramesProcess()
+    {
+        // Enable invincibility
+        isInvincible = true;
+
+        // Flash the player sprite during invincibility
+        StartCoroutine(FlashSprite());
+
+        // Wait for the specified duration of invincibility
+        yield return new WaitForSeconds(iFramesSeconds);
+
+        // Disable invincibility after the duration is over
+        isInvincible = false;
+    }
+
+    IEnumerator FlashSprite()
+    {
+
+
+        // Get the original color of the sprite
+        Color originalColor = playerShipImage.color;
+
+        // Define the colors for flashing
+        Color transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        Color visibleColor = originalColor;
+
+        // Flash the sprite for the duration of invincibility
+        float flashDuration = 0.1f; // Adjust as needed
+        while (isInvincible)
+        {
+            // Set the sprite color to transparent
+            playerShipImage.color = transparentColor;
+
+            // Wait for a short duration
+            yield return new WaitForSeconds(flashDuration);
+
+            // Set the sprite color back to visible
+            playerShipImage.color = visibleColor;
+
+            // Wait for a short duration
+            yield return new WaitForSeconds(flashDuration);
+        }
+
+        // Reset the sprite color to its original color when invincibility ends
+        playerShipImage.color = originalColor;
     }
 }

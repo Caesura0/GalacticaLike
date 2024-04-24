@@ -32,7 +32,7 @@ public class Pickup : MonoBehaviour
 
         transform.Translate(Vector3.down * pickupDropSpeed * Time.deltaTime);
 
-        if(transform.position.y < -10f)
+        if (transform.position.y < -10f)
         {
             Destroy(gameObject);
         }

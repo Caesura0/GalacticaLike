@@ -22,12 +22,12 @@ public class UIDisplay : MonoBehaviour
 
     private void Start()
     {
-        //i'd rather have a max health and a current health, lets refactor this later
-        healthSlider.maxValue = playerHealth.GetHealth();
+        healthSlider.maxValue = playerHealth.GetHealthNormalized();
     }
 
     private void Update()
     {
+        //Make these events. id also like them to be more animated
         scoreText.text = playerScore.GetCurrentScore().ToString("0000000000");
         healthSlider.value = playerHealth.GetHealth();
     }

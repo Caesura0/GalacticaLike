@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca483937a3d16c4894f6b4bf7149760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoopAtEnd: 0
 --- !u!50 &-5821568241621027055
 Rigidbody2D:
   serializedVersion: 4
@@ -184,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa60d4a6d8b974c4caac8aa4273a09c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  maxHealth: 50
   hitEffect: {fileID: 2159940611523902873, guid: de0975da21710b943b6a209cde66adef, type: 3}
   applyCameraShake: 0
   isPlayer: 0
@@ -205,7 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74139cb2c57c5f2418f14f662d34f129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  baseDamage: 10
+  baseSpeed: 10
+  isPlayerBullet: 0
 --- !u!114 &4203735746175237006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,8 +224,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3582419536025728752, guid: bc524b7f94b9e8b41814f97364bcd3d0, type: 3}
   projectileSpeed: 10
   projectileLifetime: 5
-  baseFiringRate: 1
-  rapidFiringRate: 3
+  baseFiringRate: 2
+  rapidFiringRate: 5
   useAi: 1
   fireRateVariance: 2
   minFireRate: 0.1
@@ -230,7 +233,12 @@ MonoBehaviour:
   shootVolume: 0.53
   rapidFireDuration: 5
   spreadShotDuration: 5
+  piercingDuration: 30
+  numProjectiles: 3
+  spreadAngle: 30
   isFiring: 0
+  spreadShotEnabled: 0
+  piercing: 0
   powerUpType: 3
 --- !u!114 &-1882789526514425254
 MonoBehaviour:

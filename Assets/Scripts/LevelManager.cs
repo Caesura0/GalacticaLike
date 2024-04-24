@@ -25,12 +25,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }    
     public void LoadGameOver()
     {
         
-        StartCoroutine(WaitAndLoad("Main Menu", sceneLoadDelay));
+        StartCoroutine(WaitAndLoad("MainMenu", sceneLoadDelay));
     }
 
     public void QuitGame()
