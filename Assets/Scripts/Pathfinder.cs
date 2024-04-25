@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinder : MonoBehaviour
+public class Pathfinder : MonoBehaviour, IMover
 {
     [SerializeField] bool LoopAtEnd;
 
@@ -43,10 +43,12 @@ public class Pathfinder : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("End position is null. Ensure that the end position is provided for proper initialization.");
+            //Debug.LogWarning("End position is null. Ensure that the end position is provided for proper initialization.");
         }
         transform.position = waypoints[waypointIndex].position;
     }
+
+
 
     private void Update()
     {

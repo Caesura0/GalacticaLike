@@ -120,10 +120,12 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    void SpreadShot()
+
+  void SpreadShot()
     {
         if (!useAi)
         {
+            //player shooting upwards
             for (int i = 0; i < numProjectiles; i++)
             {
                 float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
@@ -133,6 +135,7 @@ public class Shooter : MonoBehaviour
         }
         else
         {
+            //enemies shooting downwards
             for (int i = 0; i < numProjectiles; i++)
             {
                 float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
@@ -140,19 +143,20 @@ public class Shooter : MonoBehaviour
                 FireProjectile(direction);
             }
         }
-        
+
 
     }
 
     void FireProjectile(Vector3 direction)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<DamageDealer>().ApplyPowerUpEffects(currentFiringRate, spreadShotEnabled, piercing, direction,projectileSpeed);
+        projectile.GetComponent<DamageDealer>().ApplyPowerUpEffects(currentFiringRate, spreadShotEnabled, piercing, direction, projectileSpeed);
 
         Destroy(projectile, projectileLifetime);
 
         audioPlayer.PlayOneShotClip(shootingSFX, shootVolume);
     }
+
 
     IEnumerator ResetFiringRateAfterDelay(float delay)
     {

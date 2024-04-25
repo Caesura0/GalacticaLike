@@ -60,7 +60,7 @@ public class Health : MonoBehaviour
         return currentHealth;
     }
 
-    public float GetHealthNormalized() => currentHealth / maxHealth;
+    public float GetHealthNormalized() => (float)currentHealth / (float)maxHealth;
 
     private void Update()
     {

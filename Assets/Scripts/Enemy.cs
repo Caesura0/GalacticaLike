@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     Health health;
     Shooter shooter;
-    Pathfinder pathfinder;
+    IMover iMover;
 
     bool isMiniBoss;
 
@@ -15,20 +15,20 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         health = GetComponent<Health>();
         shooter = GetComponent<Shooter>();
-        pathfinder = GetComponent<Pathfinder>();
-        Debug.Log(pathfinder);
+        iMover = GetComponent<IMover>();
+        Debug.Log(iMover);
     }
 
 
 
     public void Spawn(WaveConfigSO waveConfigSO, EnemySpawner enemySpawner, Transform endPosition = null)
     {
-        if(pathfinder == null) 
+        if(iMover == null) 
         {
-            pathfinder = GetComponent<Pathfinder>();
-            Debug.LogWarning("Pathfinder is null   " + this.name); 
+            iMover = GetComponent<IMover>();
+            //Debug.LogWarning("Pathfinder is null   " + this.name); 
         }
-        pathfinder.Init(waveConfigSO, enemySpawner, endPosition);
+        iMover.Init(waveConfigSO, enemySpawner, endPosition);
     }
 
 

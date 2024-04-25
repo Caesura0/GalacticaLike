@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EndFormationTest
   m_EditorClassIdentifier: 
   pathPrefab: {fileID: 5062920163721164508, guid: 5410fdd8f67364842bcc8edd88dba3fd, type: 3}
-  moveSpeed: 4
-  timeBetweenEnemySpawns: 2
+  moveSpeed: 10
+  timeBetweenEnemySpawns: 0.2
   spawnTimeVariance: 0.5
   minimunSpawnTime: 0.2
   enemyPrefabs:

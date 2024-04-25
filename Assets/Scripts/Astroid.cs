@@ -11,6 +11,8 @@ public class Astroid : MonoBehaviour, IDamagable
     [SerializeField] protected int impactDamage = 10;
     [SerializeField] protected Transform visual;
 
+
+
     float rotationSpeed;
     Vector2 downMovement = Vector2.down;
 
@@ -20,6 +22,7 @@ public class Astroid : MonoBehaviour, IDamagable
     {
         rotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
         health = GetComponent<Health>();
+
     }
     // Update is called once per frame
     void Update()
@@ -29,29 +32,10 @@ public class Astroid : MonoBehaviour, IDamagable
 
         if (transform.position.y < -10f)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.gameObject.name + " collision");
-
-
-    }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Debug.Log(collision.gameObject.name + " trigger");
-    //    IDamagable player;
-    //    if (collision.gameObject.TryGetComponent<IDamagable>(out player))
-    //    {
-    //        if (collision.CompareTag("Player"))
-    //        {
-    //            player.TakeDamage(impactDamage);
-    //        }
-    //    }
-    //}
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -65,8 +49,6 @@ public class Astroid : MonoBehaviour, IDamagable
             }
         }
     }
-
-
 
 
     public void TakeDamage(int damage)

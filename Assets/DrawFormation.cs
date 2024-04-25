@@ -10,7 +10,7 @@ public class DrawFormation : MonoBehaviour
     {
         Transform[] children = GetComponentsInChildren<Transform>();
 
-        for (int i = 0; i < children.Length ; i++)
+        for (int i = 1; i < children.Length ; i++)
         {
             Handles.Label(children[i].position, children[i].gameObject.name);
             Gizmos.color = Color.green;

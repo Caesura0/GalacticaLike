@@ -41,7 +41,8 @@ public class DamageDealer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         IDamagable damagableTarget;
-
+        if (isPlayerBullet && other.CompareTag("Player")) return;
+        if (!isPlayerBullet && !other.CompareTag("Player")) return;
         if(other.TryGetComponent<IDamagable>( out damagableTarget))
         {
             damagableTarget.TakeDamage(GetDamage());
