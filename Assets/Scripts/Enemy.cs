@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour, IDamagable
         health = GetComponent<Health>();
         shooter = GetComponent<Shooter>();
         iMover = GetComponent<IMover>();
-        Debug.Log(iMover);
+
     }
 
 

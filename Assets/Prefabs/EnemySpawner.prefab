@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8525060813411989341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8525060813411989331}
+  - component: {fileID: 8525060813411989340}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8525060813411989331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525060813411989341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7657428, y: -0.44458118, z: 8.615674}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8525060813411989340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525060813411989341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9542e272d876dbd469d9c16636cb4280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveConfigs:
+  - {fileID: 11400000, guid: 589c29d43f8a93a4c9cd3db88e4efd2a, type: 2}
+  - {fileID: 11400000, guid: 9e42546272c82e5428d2bbcf2717835e, type: 2}
+  - {fileID: 11400000, guid: a4a57f1d5890a414492fb0358e73553b, type: 2}
+  - {fileID: 11400000, guid: 0b2997345be13924a8d41cc066c66dad, type: 2}
+  - {fileID: 11400000, guid: c69e0eb45a28e5740af45cd4e66ac10c, type: 2}
+  - {fileID: 11400000, guid: a4a57f1d5890a414492fb0358e73553b, type: 2}
+  - {fileID: 11400000, guid: c69e0eb45a28e5740af45cd4e66ac10c, type: 2}
+  - {fileID: 11400000, guid: d5ab89bdbd7f09643800d91de8b1f534, type: 2}
+  - {fileID: 11400000, guid: d5ab89bdbd7f09643800d91de8b1f534, type: 2}
+  timeBetweenWaves: 3

@@ -27,7 +27,7 @@ public class UIDisplay : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(playerHealth.GetHealthNormalized());
+        
         //Make these events. id also like them to be more animated
         scoreText.text = playerScore.GetCurrentScore().ToString("0000000000");
         healthSlider.value = playerHealth.GetHealthNormalized();

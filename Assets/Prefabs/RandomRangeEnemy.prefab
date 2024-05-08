@@ -221,10 +221,13 @@ MonoBehaviour:
   rapidFireDuration: 5
   spreadShotDuration: 5
   piercingDuration: 30
-  numProjectiles: 3
-  spreadAngle: 30
+  numProjectiles: 9
+  spreadAngle: 359
+  EulerZDebug: 0
+  targetAngleDebug: 0
+  worldPositonDebug: {x: 0, y: 0, z: 0}
   isFiring: 0
-  spreadShotEnabled: 0
+  spreadShotEnabled: 1
   piercing: 0
   powerUpType: 3
 --- !u!114 &-1882789526514425254

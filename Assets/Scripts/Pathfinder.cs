@@ -15,7 +15,7 @@ public class Pathfinder : MonoBehaviour, IMover
 
     private void Awake()
     {
-        enemySpawner = FindObjectOfType<EnemySpawner>();
+        //enemySpawner = FindObjectOfType<EnemySpawner>();
     }
 
     private void Start()

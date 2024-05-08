@@ -14,6 +14,22 @@ public class DamageDealer : MonoBehaviour
         return Mathf.RoundToInt(baseDamage * damageMultiplier);
     }
 
+
+    public void InitiateBullet(Vector3 direction, float projectileSpeed, bool piercingBulletsEnabled, float damageMultiplier, float projectileSpeedMultiplier)
+    {
+        this.damageMultiplier = damageMultiplier;
+        this.piercingEnabled = piercingBulletsEnabled;
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = direction * projectileSpeed;
+            Vector3 rotationDirection = rb.velocity.normalized;
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, rotationDirection);
+        }
+    }
+
+
     public void ApplyPowerUpEffects(float firingRate, bool spreadShotEnabled, bool piercingBulletsEnabled, Vector3 direction, float projectileSpeed)
     {
         // Apply damage multiplier based on power-up effects
@@ -34,6 +50,8 @@ public class DamageDealer : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = direction * projectileSpeed;
+            Vector3 rotationDirection = rb.velocity.normalized;
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, rotationDirection);
         }
 
     }

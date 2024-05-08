@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -36,6 +37,19 @@ public class Shooter : MonoBehaviour
     [SerializeField] int numProjectiles = 5; // Number of projectiles in the spread shot
     [SerializeField] float spreadAngle = 30f; // Angle between each projectile in the spread
 
+    [Space]
+    [Header("Laser Settings")]
+    [SerializeField] GameObject laser; 
+    [SerializeField] bool attachLaserToEnemy;
+
+    [Space]
+    [Header("SeekingMissle")]
+    [SerializeField] GameObject seekingMissle;
+    
+
+    public float EulerZDebug;
+    public float targetAngleDebug;
+    public Vector3 worldPositonDebug;
 
     //Make this a property later
     [HideInInspector] public bool isFiring;
@@ -44,9 +58,16 @@ public class Shooter : MonoBehaviour
     AudioPlayer audioPlayer;
 
     private float currentFiringRate;
+    
+
+    [Space]
+    [Space]
+    [Space]
+    [Header("Set Powers/Attack Styles Manually")]
     [SerializeField] bool spreadShotEnabled = false;
     [SerializeField] bool piercing = false;
-
+    [SerializeField] bool laserShotEnabled = false;
+    [SerializeField] bool seekingMissles = false;
     public PowerUpType powerUpType = PowerUpType.None;
 
 
@@ -105,10 +126,21 @@ public class Shooter : MonoBehaviour
     {
         while (true)
         {
+            
             if (spreadShotEnabled)
             {
                 // Spread shot behavior
                 SpreadShot();
+            }
+            else if (laserShotEnabled)
+            {
+                
+                LaserBeam();
+            }
+            else if (seekingMissles)
+            {
+
+                SeekingMissles();
             }
             else
             {
@@ -121,6 +153,29 @@ public class Shooter : MonoBehaviour
     }
 
 
+
+
+    //bullet types
+    private void SeekingMissles()
+    {
+        GameObject missleGO = Instantiate(seekingMissle, transform.position, Quaternion.identity);
+    }
+
+    void LaserBeam()
+    {
+        GameObject laserGO = Instantiate(laser, transform.position, Quaternion.identity);
+        if(attachLaserToEnemy)
+        {
+            laserGO.transform.SetParent(transform, true);
+        }
+
+        if(laserGO.TryGetComponent<LaserBeam>(out LaserBeam laserBeam))
+        {
+           
+        }
+    }
+        
+
   void SpreadShot()
     {
         if (!useAi)
@@ -128,24 +183,37 @@ public class Shooter : MonoBehaviour
             //player shooting upwards
             for (int i = 0; i < numProjectiles; i++)
             {
+
                 float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
-                Vector3 direction = Quaternion.Euler(0, 0, angle) * transform.up;
+                Vector2 direction = Quaternion.Euler(0, 0, angle) * transform.up;
                 FireProjectile(direction);
             }
         }
         else
         {
+
+
             //enemies shooting downwards
             for (int i = 0; i < numProjectiles; i++)
             {
-                float angle = transform.eulerAngles.z - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
-                Vector3 direction = Quaternion.Euler(0, 0, angle) * -transform.up;
+
+                Vector2 worldDirection = transform.TransformDirection(Vector2.up);
+                float targetAngle = Mathf.Atan2(worldDirection.y, worldDirection.x) * Mathf.Rad2Deg;
+
+                worldPositonDebug = worldDirection;
+
+                targetAngleDebug = targetAngle;
+
+                float angle = targetAngle - (spreadAngle / 2) + (i * (spreadAngle / (numProjectiles - 1)));
+                Vector2 direction = Quaternion.Euler(0, 0, angle) * -transform.right;
+
                 FireProjectile(direction);
             }
         }
 
 
     }
+
 
     void FireProjectile(Vector3 direction)
     {

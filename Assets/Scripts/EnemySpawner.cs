@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy = Instantiate(currentWave.GetEnemyPrefab(i).gameObject,
                 currentWave.GetStartingWaypoint().position,
                 Quaternion.Euler(0,0,180), transform).GetComponent<Enemy>();
-                Debug.Log(wave.JoinFormationAtEndOfPath + "  ");
+           
                 if (wave.JoinFormationAtEndOfPath && endFormationList != null && i < endFormationList.Count)
                 {
                     enemy.Spawn(wave, this, endFormationList[i]);

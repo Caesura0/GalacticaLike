@@ -1,5 +1,76 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2524639989792494579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6879802703045152626}
+  - component: {fileID: 3304764053209278503}
+  m_Layer: 7
+  m_Name: Laser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6879802703045152626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524639989792494579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.17, y: -0.53, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5701019393698802622}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3304764053209278503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524639989792494579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bd182c6a714b748a7b67fb9b29e026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 10
+  projectileLifetime: 5
+  baseFiringRate: 10
+  rapidFiringRate: 10
+  useAi: 0
+  fireRateVariance: 0.2
+  minFireRate: 0.1
+  shootingSFX: {fileID: 0}
+  shootVolume: 1
+  rapidFireDuration: 5
+  spreadShotDuration: 60
+  piercingDuration: 30
+  numProjectiles: 5
+  spreadAngle: 30
+  laser: {fileID: 3582419536025728752, guid: 044937207a1ae6d4bb1c728851d37cb8, type: 3}
+  attachLaserToEnemy: 1
+  seekingMissle: {fileID: 0}
+  EulerZDebug: 0
+  targetAngleDebug: 0
+  worldPositonDebug: {x: 0, y: 0, z: 0}
+  isFiring: 0
+  spreadShotEnabled: 0
+  piercing: 0
+  laserShotEnabled: 0
+  seekingMissles: 0
+  powerUpType: 3
 --- !u!1 &5701019393698802597
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,7 +104,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6879802703045152626}
+  - {fileID: 1352940033005386784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,8 +260,87 @@ MonoBehaviour:
   spreadShotDuration: 60
   piercingDuration: 30
   numProjectiles: 5
-  spreadAngle: -45
+  spreadAngle: 45
+  laser: {fileID: 0}
+  attachLaserToEnemy: 0
+  seekingMissle: {fileID: 0}
+  EulerZDebug: 0
+  targetAngleDebug: 0
+  worldPositonDebug: {x: 0, y: 0, z: 0}
   isFiring: 0
   spreadShotEnabled: 1
   piercing: 0
+  laserShotEnabled: 0
+  seekingMissles: 0
+  powerUpType: 3
+--- !u!1 &9107323786621468529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1352940033005386784}
+  - component: {fileID: 4479001751538432550}
+  m_Layer: 7
+  m_Name: Laser (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1352940033005386784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107323786621468529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.39, y: -0.54, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5701019393698802622}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4479001751538432550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107323786621468529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bd182c6a714b748a7b67fb9b29e026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 10
+  projectileLifetime: 5
+  baseFiringRate: 10
+  rapidFiringRate: 10
+  useAi: 0
+  fireRateVariance: 0.2
+  minFireRate: 0.1
+  shootingSFX: {fileID: 0}
+  shootVolume: 1
+  rapidFireDuration: 5
+  spreadShotDuration: 60
+  piercingDuration: 30
+  numProjectiles: 5
+  spreadAngle: 30
+  laser: {fileID: 3582419536025728752, guid: 044937207a1ae6d4bb1c728851d37cb8, type: 3}
+  attachLaserToEnemy: 1
+  seekingMissle: {fileID: 0}
+  EulerZDebug: 0
+  targetAngleDebug: 0
+  worldPositonDebug: {x: 0, y: 0, z: 0}
+  isFiring: 0
+  spreadShotEnabled: 0
+  piercing: 0
+  laserShotEnabled: 0
+  seekingMissles: 0
   powerUpType: 3

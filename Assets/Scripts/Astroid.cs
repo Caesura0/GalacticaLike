@@ -32,7 +32,7 @@ public class Astroid : MonoBehaviour, IDamagable
 
         if (transform.position.y < -10f)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 

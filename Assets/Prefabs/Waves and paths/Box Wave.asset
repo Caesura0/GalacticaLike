@@ -30,3 +30,5 @@ MonoBehaviour:
   - {fileID: -1882789526514425254, guid: db142b9cfdc0bde45a92c99531257865, type: 3}
   - {fileID: -1882789526514425254, guid: db142b9cfdc0bde45a92c99531257865, type: 3}
   - {fileID: -1882789526514425254, guid: db142b9cfdc0bde45a92c99531257865, type: 3}
+  endFormation: {fileID: 0}
+  joinFormationAtEndOfPath: 1

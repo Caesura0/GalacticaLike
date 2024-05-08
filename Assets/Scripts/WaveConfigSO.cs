@@ -67,6 +67,8 @@ public class WaveConfigSO : ScriptableObject
         foreach(Transform child in pathPrefab)
         {
             waypoints.Add(child);
+            
+
         }
 
 
