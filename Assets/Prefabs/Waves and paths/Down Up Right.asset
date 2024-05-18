@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Down Up Right
   m_EditorClassIdentifier: 
   pathPrefab: {fileID: 3134602333526537733, guid: 1f401476308ef4a4ab4d915d326013dd, type: 3}
-  moveSpeed: 9
+  moveSpeed: 13
   timeBetweenEnemySpawns: 0.8
   spawnTimeVariance: 0
-  minimunSpawnTime: 0.2
+  minimunSpawnTime: 0.05
   enemyPrefabs:
   - {fileID: -1882789526514425254, guid: db142b9cfdc0bde45a92c99531257865, type: 3}
   - {fileID: -1882789526514425254, guid: db142b9cfdc0bde45a92c99531257865, type: 3}

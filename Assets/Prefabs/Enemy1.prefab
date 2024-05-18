@@ -121,7 +121,7 @@ Transform:
   m_Children:
   - {fileID: 6487299304400502625}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2783180377900385262
 MonoBehaviour:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5856165314266709325}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eca483937a3d16c4894f6b4bf7149760, type: 3}
   m_Name: 
@@ -224,8 +224,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3582419536025728752, guid: bc524b7f94b9e8b41814f97364bcd3d0, type: 3}
   projectileSpeed: 10
   projectileLifetime: 5
-  baseFiringRate: 2
-  rapidFiringRate: 5
+  baseFiringRate: 5
+  rapidFiringRate: 9
   useAi: 1
   fireRateVariance: 2
   minFireRate: 0.1
@@ -236,12 +236,17 @@ MonoBehaviour:
   piercingDuration: 30
   numProjectiles: 3
   spreadAngle: 30
+  laser: {fileID: 0}
+  attachLaserToEnemy: 0
+  seekingMissle: {fileID: 2776676210192267169, guid: 332060e8431a2594b814ac72a9c89376, type: 3}
   EulerZDebug: 0
   targetAngleDebug: 0
   worldPositonDebug: {x: 0, y: 0, z: 0}
   isFiring: 0
   spreadShotEnabled: 0
   piercing: 0
+  laserShotEnabled: 0
+  seekingMissles: 1
   powerUpType: 3
 --- !u!114 &-1882789526514425254
 MonoBehaviour:
