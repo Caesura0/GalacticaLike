@@ -13,7 +13,6 @@ public class Shooter : MonoBehaviour
     [Header("Weapon Parameters")]
     [SerializeField] float baseFiringRate = 1f;
     [SerializeField] float rapidFiringRate = 3f;
-
     [Space]
     [Header("AI")]
     [SerializeField] bool useAi;

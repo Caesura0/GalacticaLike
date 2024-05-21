@@ -10,8 +10,28 @@ public class Pathfinder : MonoBehaviour, IMover
     WaveConfigSO waveConfig;
     EnemySpawner enemySpawner;
   
-    List<Transform> waypoints = new List<Transform>();
+    public List<Transform> waypoints = new List<Transform>();
     int waypointIndex = 0;
+
+    [SerializeField] bool isBossEnemy;
+
+    public event EventHandler OnPathEnd;
+
+
+    float moveSpeed;
+
+
+    private void OnValidate()
+    {
+#if UNITY_EDITOR
+        if (!isBossEnemy)
+        {
+            
+        }
+#endif
+    }
+
+
 
     private void Awake()
     {
@@ -37,6 +57,7 @@ public class Pathfinder : MonoBehaviour, IMover
         this.enemySpawner = enemySpawner;
         waveConfig = waveConfigSO;
         waypoints = waveConfig.GetWaypoints();
+        moveSpeed = waveConfigSO.GetMoveSpeed();
         if(endPosition != null )
         {
             waypoints.Add(endPosition);
@@ -48,7 +69,11 @@ public class Pathfinder : MonoBehaviour, IMover
         transform.position = waypoints[waypointIndex].position;
     }
 
-
+    public void SetPathDirectly(List<Transform> waypoints, float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+        this.waypoints = waypoints;
+    }
 
     private void Update()
     {
@@ -65,7 +90,7 @@ public class Pathfinder : MonoBehaviour, IMover
             if (waypointIndex < waypoints.Count)
             {
                 Vector3 targetPosition = waypoints[waypointIndex].position;
-                float delta = waveConfig.GetMoveSpeed() * Time.deltaTime;
+                float delta = moveSpeed * Time.deltaTime;
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, delta);
 
                 if (transform.position == targetPosition)
@@ -76,6 +101,7 @@ public class Pathfinder : MonoBehaviour, IMover
             else
             {
                 waypointIndex = 0;
+                OnPathEnd?.Invoke(this,EventArgs.Empty);
             }
         }
         else
@@ -93,8 +119,8 @@ public class Pathfinder : MonoBehaviour, IMover
             }
             else
             {
-                if (!waveConfig.JoinFormationAtEndOfPath)
-                {
+                if (!waveConfig.JoinFormationAtEndOfPath && !isBossEnemy)
+                {      
                     Destroy(gameObject);
                 }
                 

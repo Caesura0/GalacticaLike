@@ -58,7 +58,7 @@ public class WaveConfigSO : ScriptableObject
 
     public Transform GetStartingWaypoint()
     {
-        return pathPrefab.GetChild(0);
+        return pathPrefab.GetChild(1);
     }
     public List<Transform> GetWaypoints()
     {
@@ -66,11 +66,11 @@ public class WaveConfigSO : ScriptableObject
 
         foreach(Transform child in pathPrefab)
         {
-            waypoints.Add(child);
-            
-
+            if(child != pathPrefab)
+            {
+                waypoints.Add(child);
+            }   
         }
-
 
         return waypoints;
     }

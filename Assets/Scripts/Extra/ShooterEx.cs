@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ShooterEx : MonoBehaviour
 {
+    [Header("General")]
+
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletMoveSpeed;
+    [SerializeField] float projectileLifetime = 5f;
+    [SerializeField] float baseFiringRate = 1f;
     [SerializeField] private int burstCount;
     [SerializeField] private int projectilesPerBurst;
     [SerializeField][Range(0, 359)] private float angleSpread;
@@ -17,11 +21,19 @@ public class ShooterEx : MonoBehaviour
     [SerializeField] private bool oscillate;
 
 
-    public bool targetPlayer;
-
-    public Vector2 targetPosition;
 
 
+    [Space]
+    [Header("Audio Settings")]
+    [SerializeField] AudioClip shootingSFX;
+    [SerializeField][Range(0f, 1f)] float shootVolume = 1f;
+    AudioPlayer audioPlayer;
+
+    bool targetPlayer;
+
+    Vector2 targetDir;
+
+    public bool piercing = false;
 
     Player player;
     private bool isShooting = false;
@@ -38,9 +50,21 @@ public class ShooterEx : MonoBehaviour
     }
 
 
+    Vector3 target;
+
+
+
     private void Start()
     {
         player = FindObjectOfType<Player>();
+        audioPlayer  = FindObjectOfType<AudioPlayer>();
+        targetPlayer = true;
+
+        SetTarget(ShootDirection.Down);
+
+        StartCoroutine(FireContinuously());
+
+
     }
 
     public void Attack()
@@ -50,6 +74,22 @@ public class ShooterEx : MonoBehaviour
             StartCoroutine(ShootRoutine());
         }
     }
+
+
+    IEnumerator FireContinuously()
+    {
+        while (true)
+        {
+
+             Attack();
+            
+
+            yield return new WaitForSeconds(baseFiringRate);
+        }
+    }
+
+
+
 
     private IEnumerator ShootRoutine()
     {
@@ -86,13 +126,15 @@ public class ShooterEx : MonoBehaviour
             {
                 Vector2 pos = FindBulletSpawnPos(currentAngle);
 
-                GameObject newBullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
-                newBullet.transform.right = newBullet.transform.position - transform.position;
-
-                if (newBullet.TryGetComponent(out DamageDealer projectile))
-                {
-                    //projectile.UpdateMoveSpeed(bulletMoveSpeed);
-                }
+                Vector3 shootDirection = pos - (Vector2)transform.position;
+                FireProjectile(shootDirection,pos);
+                //GameObject newBullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
+                //newBullet.transform.right = newBullet.transform.position - transform.position;
+             
+                //if (newBullet.TryGetComponent(out DamageDealer projectile))
+                //{
+                    
+                //}
 
                 currentAngle += angleStep;
 
@@ -108,6 +150,37 @@ public class ShooterEx : MonoBehaviour
         isShooting = false;
     }
 
+
+
+
+    public void SetTarget(ShootDirection direction)
+    {
+        switch (direction)
+        {
+            case ShootDirection.Up:
+                targetDir = Vector2.up;
+                targetPlayer = false;
+                break;
+            case ShootDirection.Down:
+                targetDir = Vector2.down;
+                targetPlayer = false;
+                break;
+            case ShootDirection.Left:
+                targetDir = Vector2.left;
+                targetPlayer = false;
+                break;
+            case ShootDirection.Right:
+                targetDir = Vector2.right;
+                targetPlayer = false;
+                break;
+            case ShootDirection.Player:
+                targetPlayer = true;
+                break;
+        }
+    }
+
+
+
     private void TargetConeOfInfluence(out float startAngle, out float currentAngle, out float angleStep, out float endAngle)
     {
         
@@ -118,7 +191,7 @@ public class ShooterEx : MonoBehaviour
         }
         else
         {
-            targetDirection = targetPosition;
+            targetDirection = targetDir;
         }
 
         //calcuates the angle between positive x axis(global) (0,1) and target direction
@@ -146,5 +219,27 @@ public class ShooterEx : MonoBehaviour
         Vector2 pos = new Vector2(x, y);
 
         return pos;
+    }
+
+
+    void FireProjectile(Vector3 direction, Vector3 pos)
+    {
+        GameObject projectile = Instantiate(bulletPrefab, pos, Quaternion.identity);
+        projectile.GetComponent<DamageDealer>().ApplyPowerUpEffects(2f, false, piercing, direction, bulletMoveSpeed);
+
+        Destroy(projectile, projectileLifetime);
+
+        audioPlayer.PlayOneShotClip(shootingSFX, shootVolume);
+    }
+
+
+
+    public enum ShootDirection
+    {
+        Left,
+        Right,
+        Up,
+        Down,
+        Player
     }
 }

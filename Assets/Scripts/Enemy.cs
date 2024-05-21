@@ -53,4 +53,12 @@ public class Enemy : MonoBehaviour, IDamagable
         }
 
     }
+
+
+    public void Die()
+    {
+
+        //death particles
+        Destroy(gameObject);
+    }
 }

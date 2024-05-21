@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 
     [SerializeField] int maxHealth = 50;
     [SerializeField] ParticleSystem hitEffect;
-
+    [SerializeField] Material flashMaterial;
     [SerializeField] bool applyCameraShake = false;
     [SerializeField] bool isPlayer = false;
     [SerializeField] int pointsAwarded = 0;
@@ -23,16 +23,21 @@ public class Health : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float hitVolume = 1f;
     [SerializeField] GameObject shieldSprite;
 
+    [SerializeField] bool disableInsteadOfDie;
 
 
     CameraShake cameraShake;
     AudioPlayer audioPlayer;
     ScoreKeeper scoreKeeper;
     LevelManager levelManager;
-
+    Material originalMaterial;
     bool shieldActive;
 
+    private Transform currentTransform;
     int currentHealth;
+
+
+    public event EventHandler onDeath;
 
     private void Awake()
     {
@@ -114,13 +119,22 @@ public void HealPlayer(int healAmount)
 
         if (currentHealth <= 0)
         {
-            Die();
+            if(disableInsteadOfDie)
+            {
+                GetComponent<PolygonCollider2D>().enabled = false;
+                Debug.Log("disable instead of die ");
+                onDeath?.Invoke(this,EventArgs.Empty);
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 
     public void Die()
     {
-        if (!CompareTag("Player"))
+        if (!isPlayer)
         {
             scoreKeeper?.SetScore(pointsAwarded);
         }
@@ -128,6 +142,8 @@ public void HealPlayer(int healAmount)
         {
             levelManager.LoadGameOver();
         }
+        onDeath?.Invoke(this, EventArgs.Empty);
+        //death particles
         Destroy(gameObject);
     }
 
@@ -138,6 +154,7 @@ public void HealPlayer(int healAmount)
             ParticleSystem particleInstance = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(particleInstance.gameObject, particleInstance.main.duration + particleInstance.main.startLifetime.constantMax);
         }
+
     }
 
     public void SetShield(bool shield)
@@ -151,4 +168,9 @@ public void HealPlayer(int healAmount)
     {
         return isPlayer;
     }
+
+
+
 }
+
+
